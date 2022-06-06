@@ -10,11 +10,8 @@
 
     </div>
 </c:if>
-<label for="title">課題名</label><br />
-<input type="text" name="title" value="${message.title}" />
-<br /><br />
 
-<label for="content">メッセージ</label><br />
+<label for="content">課題</label><br />
 <input type="text" name="content" value="${message.content}" />
 <br /><br />
 
