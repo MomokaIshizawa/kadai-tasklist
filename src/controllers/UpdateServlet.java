@@ -12,8 +12,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import models.Message;
-import models.validators.MessageValidator;
+import models.Task;
+import models.validators.TaskValidator;
 import utils.DBUtil;
 
 /**
@@ -39,22 +39,22 @@ public class UpdateServlet extends HttpServlet {
         if(_token != null && _token.equals(request.getSession().getId())) {
             EntityManager em = DBUtil.createEntityManager();
 
-            Message m = em.find(Message.class,(Integer)(request.getSession().getAttribute("message_id")));
+            Task t = em.find(Task.class,(Integer)(request.getSession().getAttribute("task_id")));
 
 
 
             String content = request.getParameter("content");
-            m.setContent(content);
+            t.setContent(content);
 
             Timestamp currentTime = new Timestamp(System.currentTimeMillis());
-            m.setUpdated_at(currentTime);  //更新時のみ上書き
+            t.setUpdated_at(currentTime);  //更新時のみ上書き
 
-            List<String> errors = MessageValidator.validate(m);
+            List<String> errors = TaskValidator.validate(t);
             if(errors.size() > 0) {
                 em.close();
 
                 request.setAttribute("_token", request.getSession().getId());
-                request.setAttribute("message", m);
+                request.setAttribute("task", t);
                 request.setAttribute("errors", errors);
 
                 RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/kadai/edit.jsp");
@@ -66,7 +66,7 @@ public class UpdateServlet extends HttpServlet {
             request.getSession().setAttribute("flush","登録が完了しました。");
             em.close();
 
-            request.getSession().removeAttribute("message_id");
+            request.getSession().removeAttribute("task_id");
 
             response.sendRedirect(request.getContextPath() + "/index");
 

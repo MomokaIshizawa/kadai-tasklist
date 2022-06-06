@@ -12,8 +12,8 @@
 </c:if>
 
 <label for="content">課題</label><br />
-<input type="text" name="content" value="${message.content}" />
+<input type="text" name="content" value="${task.content}" />
 <br /><br />
 
 <input type="hidden" name="_token" value="${_token}" />
-<button type="submit">投稿</button>
+<button type="submit">登録</button>
