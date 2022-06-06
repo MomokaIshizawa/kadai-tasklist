@@ -50,17 +50,15 @@ public class CreateServlet extends HttpServlet {
             m.setCreated_at(currentTime);
             m.setUpdated_at(currentTime);
 
-         // バリデーションを実行してエラーがあったら新規登録のフォームに戻る
             List<String> errors = MessageValidator.validate(m);
             if(errors.size() > 0) {
                 em.close();
 
-                // フォームに初期値を設定、さらにエラーメッセージを送る
                 request.setAttribute("_token", request.getSession().getId());
                 request.setAttribute("message", m);
                 request.setAttribute("errors", errors);
 
-                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/messages/new.jsp");
+                RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/kadai/new.jsp");
                 rd.forward(request, response);
             } else {
 

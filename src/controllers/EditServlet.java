@@ -34,25 +34,21 @@ public class EditServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         EntityManager em = DBUtil.createEntityManager();
 
-        //該当のIDのメッセージ１件のみをデータベースから取得
         Message m = em.find(Message.class,Integer.parseInt(request.getParameter("id")));
 
         em.close();
 
 
-        //メッセージ情報とセッションIDをリクエストスコープに登録
         request.setAttribute("message",m);
         request.setAttribute("_token",request.getSession().getId());
 
 
-        //メッセージデータが存在しているときのみ
-        //メッセージIDをセッションスコープに登録
         if(m != null) {
         request.getSession().setAttribute("message_id",m.getId());
 
         }
 
-        RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/messages/edit.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("WEB-INF/views/kadai/edit.jsp");
         rd.forward(request, response);
 
     }

@@ -27,7 +27,7 @@ public class NewServlet extends HttpServlet {
 
         request.setAttribute("message",new Message());
 
-        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/messages/new.jsp");
+        RequestDispatcher rd = request.getRequestDispatcher("/WEB-INF/views/kadai/new.jsp");
         rd.forward(request, response);
 
 }
